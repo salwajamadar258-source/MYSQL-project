@@ -53,5 +53,74 @@ Displays member details along with their membership plan and fee. Only members w
 FROM Member m
 INNER JOIN Membership ms
     ON m.Membership_ID = ms.Membership_ID;
-    ```
+ ```
+# 2. LEFT JOIN – All Members and Their Payments
 
+Displays all members, including those who have not made any payment. Members without payments will show NULL in the payment columns.
+SELECT
+    m.Member_ID,
+    m.Member_Name,
+    p.Amount,
+    p.Payment_Date,
+    p.Payment_Status
+FROM Member m
+LEFT JOIN Payment p
+    ON m.Member_ID = p.Member_ID;
+
+3. RIGHT JOIN – Trainers and Assigned Members
+
+Displays all trainers, including trainers who do not currently have any assigned members.
+
+```SELECT
+    t.Trainer_ID,
+    t.Trainer_Name,
+    m.Member_ID,
+    m.Member_Name
+FROM Member m
+RIGHT JOIN Trainer t
+    ON m.Trainer_ID = t.Trainer_ID;
+```
+
+# 4. FULL OUTER JOIN Concept – All Members and Payments
+
+MySQL does not directly support FULL OUTER JOIN. We can combine LEFT JOIN and RIGHT JOIN using UNION to show all members and payment records, including unmatched records.
+
+```SELECT
+    m.Member_ID,
+    m.Member_Name,
+    p.Payment_ID,
+    p.Amount
+FROM Member m
+LEFT JOIN Payment p
+    ON m.Member_ID = p.Member_ID
+
+UNION
+
+SELECT
+    m.Member_ID,
+    m.Member_Name,
+    p.Payment_ID,
+    p.Amount
+FROM Member m
+RIGHT JOIN Payment p
+    ON m.Member_ID = p.Member_ID;
+```
+# 5. MULTIPLE TABLE JOIN – Complete Member Details
+
+Combines the Member, Membership, Trainer, and Payment tables to display member information, their membership plan, assigned trainer, and payment details.
+
+```SELECT
+    m.Member_ID,
+    m.Member_Name,
+    ms.Plan_Name,
+    t.Trainer_Name,
+    p.Amount,
+    p.Payment_Status
+FROM Member m
+INNER JOIN Membership ms
+    ON m.Membership_ID = ms.Membership_ID
+LEFT JOIN Trainer t
+    ON m.Trainer_ID = t.Trainer_ID
+LEFT JOIN Payment p
+    ON m.Member_ID = p.Member_ID;
+```
