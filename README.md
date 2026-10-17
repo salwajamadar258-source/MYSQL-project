@@ -124,3 +124,112 @@ LEFT JOIN Trainer t
 LEFT JOIN Payment p
     ON m.Member_ID = p.Member_ID;
 ```
+## SQL Subqueries Used in the Project
+
+### 1. Members Who Made Payments Above Average
+
+Finds members whose payment amount is greater than the average payment amount.
+
+```sql
+SELECT
+    Member_ID,
+    Member_Name
+FROM Member
+WHERE Member_ID IN (
+    SELECT Member_ID
+    FROM Payment
+    WHERE Amount > (
+        SELECT AVG(Amount)
+        FROM Payment
+    )
+);
+```
+
+### 2. Most Expensive Membership Plan
+
+Displays the membership plan or plans with the highest membership fee.
+
+```sql
+SELECT
+    Plan_Name,
+    Membership_Fee
+FROM Membership
+WHERE Membership_Fee = (
+    SELECT MAX(Membership_Fee)
+    FROM Membership
+);
+```
+
+### 3. Members Who Have Completed Their Payments
+
+Displays members who have at least one successful payment.
+
+```sql
+SELECT
+    Member_ID,
+    Member_Name
+FROM Member
+WHERE Member_ID IN (
+    SELECT Member_ID
+    FROM Payment
+    WHERE Payment_Status = 'Successful'
+);
+```
+
+### 4. Member with the Highest Attendance
+
+Finds the member or members who have recorded the highest number of attendance entries.
+
+```sql
+SELECT
+    Member_ID,
+    Member_Name
+FROM Member
+WHERE Member_ID IN (
+    SELECT Member_ID
+    FROM Attendance
+    GROUP BY Member_ID
+    HAVING COUNT(*) = (
+        SELECT MAX(Attendance_Count)
+        FROM (
+            SELECT COUNT(*) AS Attendance_Count
+            FROM Attendance
+            GROUP BY Member_ID
+        ) AS Attendance_Summary
+    )
+);
+```
+
+### 5. Trainers with the Most Assigned Members
+
+Identifies the trainer or trainers who have the highest number of assigned members.
+
+```sql
+SELECT
+    Trainer_ID,
+    Trainer_Name
+FROM Trainer
+WHERE Trainer_ID IN (
+    SELECT Trainer_ID
+    FROM Member
+    WHERE Trainer_ID IS NOT NULL
+    GROUP BY Trainer_ID
+    HAVING COUNT(*) = (
+        SELECT MAX(Member_Count)
+        FROM (
+            SELECT COUNT(*) AS Member_Count
+            FROM Member
+            WHERE Trainer_ID IS NOT NULL
+            GROUP BY Trainer_ID
+        ) AS Trainer_Summary
+    )
+);
+```
+
+### Key Insights
+
+- Identified members with above-average payment amounts.
+- Found the most expensive membership plan.
+- Retrieved members with successful payments.
+- Identified members with the highest attendance.
+- Determined which trainers have the most assigned members.
