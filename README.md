@@ -42,7 +42,7 @@ Stores payment transactions made by gym members, including payment amount, date,
 ## ER DIAGRAM 
 ## SQL joins
 The project demonstrates different types of joins:
-# 1. INNER JOIN – Members with Membership Plans
+### 1. INNER JOIN – Members with Membership Plans
 
 Displays member details along with their membership plan and fee. Only members with a matching membership record are shown.
 ``` SELECT
@@ -54,7 +54,7 @@ FROM Member m
 INNER JOIN Membership ms
     ON m.Membership_ID = ms.Membership_ID;
  ```
-# 2. LEFT JOIN – All Members and Their Payments
+### 2. LEFT JOIN – All Members and Their Payments
 
 Displays all members, including those who have not made any payment. Members without payments will show NULL in the payment columns.
 SELECT
@@ -67,7 +67,7 @@ FROM Member m
 LEFT JOIN Payment p
     ON m.Member_ID = p.Member_ID;
 
-3. RIGHT JOIN – Trainers and Assigned Members
+### 3. RIGHT JOIN – Trainers and Assigned Members
 
 Displays all trainers, including trainers who do not currently have any assigned members.
 
@@ -81,7 +81,7 @@ RIGHT JOIN Trainer t
     ON m.Trainer_ID = t.Trainer_ID;
 ```
 
-# 4. FULL OUTER JOIN Concept – All Members and Payments
+### 4. FULL OUTER JOIN Concept – All Members and Payments
 
 MySQL does not directly support FULL OUTER JOIN. We can combine LEFT JOIN and RIGHT JOIN using UNION to show all members and payment records, including unmatched records.
 
@@ -105,7 +105,7 @@ FROM Member m
 RIGHT JOIN Payment p
     ON m.Member_ID = p.Member_ID;
 ```
-# 5. MULTIPLE TABLE JOIN – Complete Member Details
+### 5. MULTIPLE TABLE JOIN – Complete Member Details
 
 Combines the Member, Membership, Trainer, and Payment tables to display member information, their membership plan, assigned trainer, and payment details.
 
