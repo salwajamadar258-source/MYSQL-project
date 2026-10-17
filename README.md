@@ -235,11 +235,6 @@ Contains SQL queries for database creation, table creation, data insertion, join
 
 - [SQL File](./Gym%20Management%20System.sql)
 
-### Gym Management System.pptx
-
-Contains the project presentation, database structure, table descriptions, SQL queries, and outputs.
-
-- [SQL PPT](./Gym%20Management%20System.pptx)
 ### Key Insights
 
 - Identified members with above-average payment amounts.
