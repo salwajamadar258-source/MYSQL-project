@@ -225,7 +225,21 @@ WHERE Trainer_ID IN (
     )
 );
 ```
+## 📁 Project Files
 
+### Gym-Management-System-MySQL
+
+### Gym Management System.sql
+
+Contains SQL queries for database creation, table creation, data insertion, joins, subqueries, and views used in the Gym Management System.
+
+- [SQL File](./Gym%20Management%20System.sql)
+
+### Gym Management System.pptx
+
+Contains the project presentation, database structure, table descriptions, SQL queries, and outputs.
+
+- [SQL PPT](./Gym%20Management%20System.pptx)
 ### Key Insights
 
 - Identified members with above-average payment amounts.
